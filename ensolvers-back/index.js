@@ -19,7 +19,7 @@ app.listen(PORT, () => {
 })
 
 app.get('/init', (req, res) => {
-  const sqlQuery =  'CREATE TABLE IF NOT EXISTS emails(id int AUTO_INCREMENT, firstname VARCHAR(50), lastname VARCHAR(50), email VARCHAR(50), PRIMARY KEY(id))';
+  const sqlQuery =  'CREATE TABLE IF NOT EXISTS todos(id int AUTO_INCREMENT, title VARCHAR(120), iscompleted BOOLEAN, PRIMARY KEY(id))';
 
   db.query(sqlQuery, (err) => {
       if (err) throw err;
