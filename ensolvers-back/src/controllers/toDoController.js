@@ -1,18 +1,31 @@
-const express = require('express');
+const express = require('express')
+const db = require('../db')
 
-const router = express.Router();
+const router = express.Router()
 
-const todos = [
-  { id: 1, title: 'Tomar mates', isCompleted: true },
-  { id: 2, title: 'Implementar todos', isCompleted: false },
-]
+router.post('/', (req, res) => {
+	const todo = {
+		title: req.body.title,
+		iscompleted: false,
+	}
+	db.query('INSERT INTO todos SET ?', todo, (err, result) => {
+		if (err) throw err
+		res.send(result)
+	})
+})
 
 router.get('/', (req, res) => {
-	res.send(todos)
+  db.query('SELECT * FROM todos', (err, result) => {
+    if (err) throw err
+    res.json(result)
+  })
 })
 
 router.get('/:id', (req, res) => {
-  res.send(todos.find(todo => todo.id === parseInt(req.params.id)))
+  db.query('SELECT * FROM todos WHERE id = ?', parseInt(req.params.id), (err, result) => {
+    if (err) throw err
+    res.json(result)
+  })
 })
 
-module.exports = router;
+module.exports = router
