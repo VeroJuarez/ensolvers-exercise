@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+import { AddToDoForm } from '../components/AddToDoForm'
 import { ToDoItem } from '../components/ToDoItem'
 
 export const Home = () => {
@@ -14,13 +15,15 @@ export const Home = () => {
   useEffect(() => fetchTodos(), [])
 
   return (
-    <>
+    <div>
       <h1>To-Do List</h1>
+      <AddToDoForm />
+      <br />
       <section>
         { todos.map(todo => 
           <ToDoItem id={todo.id} title={todo.title} isCompleted={todo.isCompleted} key={todo.id} />
         )}
       </section>
-    </>
+    </div>
   )
 }
