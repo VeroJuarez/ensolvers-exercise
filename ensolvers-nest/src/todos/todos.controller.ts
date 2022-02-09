@@ -44,7 +44,6 @@ export class TodosController {
 
   @Put('/:id')
   async updateTodo(@Res() response, @Param('id') id, @Body() values) {
-    console.log(values)
     const updateResult = await this.TodosService.updateOne(id, values);
     return response.status(HttpStatus.OK).json({
       updateResult,
