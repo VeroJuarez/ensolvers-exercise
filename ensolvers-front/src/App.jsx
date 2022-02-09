@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import './App.css'
 import { useSelector } from 'react-redux'
 import { getIsLoading } from './store/selectors/loading'
 import { Loading } from './components/Loading'
