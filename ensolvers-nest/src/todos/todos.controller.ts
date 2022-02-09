@@ -1,4 +1,5 @@
-import { Controller, Post, Body, HttpStatus, Get, Res, Param } from '@nestjs/common';
+import { Controller, Post, Body, HttpStatus, Get, Res, Param, Delete } from '@nestjs/common';
+import { response } from 'express';
 
 import { Todo } from './todos.entity';
 import { TodosService } from './todos.service';
@@ -30,4 +31,13 @@ export class TodosController {
       todo
     })
   }
+
+  @Delete('/:id')
+  async removeById(@Res() response, @Param('id') id) {
+    const deleteResult = await this.TodosService.removeOne(id);
+    return response.status(HttpStatus.OK).json({
+      deleteResult
+    })
+  }
+
 }
