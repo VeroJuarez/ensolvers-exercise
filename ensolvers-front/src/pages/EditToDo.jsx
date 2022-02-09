@@ -9,14 +9,14 @@ export const EditToDo = () => {
   const navigate = useNavigate()
 
 	const fetchTodo = async () => {
-		const response = await axios.get(`http://localhost:4000/todo/${id}`)
+		const response = await axios.get(`http://localhost:4000/todos/${id}`)
 		const item = response.data[0]
 		setTodo(item)
 	}
 
 	const editTodo = async () => {
     if(newTitle !== '') {
-      await axios.put(`http://localhost:4000/todo/${id}`, {
+      await axios.put(`http://localhost:4000/todos/${id}`, {
         title: newTitle,
       })
     }
