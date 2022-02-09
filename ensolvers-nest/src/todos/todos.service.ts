@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, DeleteResult } from 'typeorm';
+import { Repository, DeleteResult, UpdateResult } from 'typeorm';
 
 import { Todo } from './todos.entity';
 
@@ -9,7 +9,11 @@ export class TodosService {
   constructor(
     @InjectRepository(Todo)
     private repo: Repository<Todo>,
-  ) {}
+    ) {}
+    
+  createTodo(todo: Todo): Promise<Todo> {
+    return this.repo.save(todo);
+  }
 
   findAll(): Promise<Todo[]> {
     return this.repo.find();
@@ -19,8 +23,8 @@ export class TodosService {
     return this.repo.findOne(id);
   }
 
-  createTodo(todo: Todo): Promise<Todo> {
-    return this.repo.save(todo);
+  updateOne(id: number, values: Object): Promise<UpdateResult> {
+    return this.repo.update(id, values)
   }
 
   removeOne(id: number): Promise<DeleteResult> {

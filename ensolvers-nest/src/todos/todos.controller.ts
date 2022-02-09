@@ -1,4 +1,14 @@
-import { Controller, Post, Body, HttpStatus, Get, Res, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  HttpStatus,
+  Get,
+  Res,
+  Param,
+  Delete,
+  Put,
+} from '@nestjs/common';
 import { response } from 'express';
 
 import { Todo } from './todos.entity';
@@ -12,32 +22,40 @@ export class TodosController {
   async createTodo(@Res() response, @Body() todo: Todo) {
     const newTodo = await this.TodosService.createTodo(todo);
     return response.status(HttpStatus.CREATED).json({
-      newTodo
-    })
+      newTodo,
+    });
   }
 
   @Get()
   async fetchAll(@Res() response) {
     const todos = await this.TodosService.findAll();
     return response.status(HttpStatus.OK).json({
-      todos
-    })
+      todos,
+    });
   }
 
   @Get('/:id')
   async findById(@Res() response, @Param('id') id) {
     const todo = await this.TodosService.findOne(id);
     return response.status(HttpStatus.OK).json({
-      todo
-    })
+      todo,
+    });
+  }
+
+  @Put('/:id')
+  async updateTodo(@Res() response, @Param('id') id, @Body() values) {
+    console.log(values)
+    const updateResult = await this.TodosService.updateOne(id, values);
+    return response.status(HttpStatus.OK).json({
+      updateResult,
+    });
   }
 
   @Delete('/:id')
   async removeById(@Res() response, @Param('id') id) {
     const deleteResult = await this.TodosService.removeOne(id);
     return response.status(HttpStatus.OK).json({
-      deleteResult
-    })
+      deleteResult,
+    });
   }
-
 }
