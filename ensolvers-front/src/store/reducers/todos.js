@@ -14,6 +14,30 @@ export default function state(state = [], action) {
 	if (action.type === '@todos/CREATE_TODO') {
 		state = state.concat(action.payload)
 	}
+	if (action.type === '@todos/MARK_COMPLETED') {
+		state = state.map((todo) => {
+			if (todo.id === action.payload) {
+				return {
+					id: todo.id,
+					title: todo.title,
+					isCompleted: !todo.isCompleted,
+				}
+			}
+			return todo
+		})
+	}
+	if (action.type === '@todos/UPDATE_TODO') {
+		state = state.map((todo) => {
+			if (todo.id === action.payload.id) {
+				return {
+					id: todo.id,
+					title: action.payload.title,
+					isCompleted: todo.isCompleted
+				}
+			}
+			return todo
+		})
+	}
 	if (action.type === '@todos/DELETE_TODO') {
 		state = state.filter((todo) => todo.id !== action.payload)
 	}
@@ -40,6 +64,26 @@ export const createTodo = (todoTitle) => async (dispatch) => {
 	dispatch({
 		type: '@todos/CREATE_TODO',
 		payload: response.data.newTodo,
+	})
+}
+
+export const markCompleted = (id, isCompleted) => async (dispatch) => {
+	await axios.put(`http://localhost:4000/todos/${id}`, {
+		isCompleted: !isCompleted,
+	})
+	dispatch({
+		type: '@todos/MARK_TODO',
+		payload: id,
+	})
+}
+
+export const updateTodo = (id, title) => async (dispatch) => {
+	await axios.put(`http://localhost:4000/todos/${id}`, {
+		title: title,
+	})
+	dispatch({
+		type: '@todos/UPDATE_TODO',
+		payload: { id, title },
 	})
 }
 
