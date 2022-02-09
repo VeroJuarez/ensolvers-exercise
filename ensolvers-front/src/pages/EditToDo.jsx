@@ -28,20 +28,24 @@ export const EditToDo = () => {
 
 	return (
 		<>
-			<h1>Editing task</h1>
-			<input
-				type="text"
-				defaultValue={todo.title}
-				onChange={(event) => setNewTitle(event.target.value)}
-			/>
-			<input
-				type="submit"
-				value="Editar"
-				onClick={(event) => {
-					event.preventDefault()
-					editTodo()
-				}}
-			/>
+			<h1 className="text-center font-medium">EDITING TASK</h1>
+			<form className="grid grid-cols-8 gap-2 my-3">
+				<input
+					type="text"
+					defaultValue={todo.title}
+					onChange={(event) => setNewTitle(event.target.value)}
+					className="col-span-6"
+				/>
+				<input
+					type="submit"
+					value="Editar"
+					onClick={(event) => {
+						event.preventDefault()
+						editTodo()
+					}}
+					className="col-span-2 cursor-pointer font-medium bg-blue-300 text-white hover:border-transparent hover:bg-blue-500"
+				/>
+			</form>
 		</>
 	)
 }

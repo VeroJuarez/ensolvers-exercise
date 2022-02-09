@@ -8,10 +8,9 @@ export const Home = () => {
   const todos = useSelector((state) => getTodos(state))
 
 	return (
-		<div>
-			<h1>To-Do List</h1>
+		<>
+			<h1 className="text-center font-medium">TO DO LIST</h1>
 			<AddToDoForm />
-			<br />
 			<section>
         { todos.length === 0 && 
           <h4>No hay nada que mostrar, agregá un to-do para verlo acá</h4>
@@ -25,6 +24,6 @@ export const Home = () => {
 					/>
 				))}
 			</section>
-		</div>
+		</>
 	)
 }
